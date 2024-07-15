@@ -1,0 +1,52 @@
+class ToDoList:
+    def __init__(self):
+        self.tasks = {}
+    def create(self,task_no,task_name):
+        self.tasks[task_no] = {"name": task_name, "status": "Not Started"}
+        print(f"Task {task_no} created: {task_name}")
+    def update(self, task_no, task_name=None, status=None):
+        if task_no in self.tasks:
+            if task_name:
+                self.tasks[task_no]["name"] = task_name
+            if status:
+                self.tasks[task_no]["status"] = status
+            print(f"Task {task_no} updated")
+        else:
+            print(f"Task {task_no} not found")
+    def delete(self, task_no):
+        if task_no in self.tasks:
+            del self.tasks[task_no]
+            print(f"Task {task_no} deleted")
+        else:
+            print(f"Task {task_no} not found")
+    def view(self):
+        for task_no, task in self.tasks.items():
+            print(f"Task {task_no}: {task['name']} - {task['status']}")
+def main():
+    todo_list = ToDoList()
+    while True:
+        print("\n1. Create Task")
+        print("2. Update Task")
+        print("3. Delete Task")
+        print("4. View Tasks")
+        print("5. Exit")
+        choice = input("Choose an option: ")
+        if choice == "1":
+            task_no = input("Enter task no: ")
+            task_name = input("Enter task name: ")
+            todo_list.create(task_no, task_name)
+        elif choice == "2":
+            task_no = input("Enter task no: ")
+            status = "Completed"
+            todo_list.update(task_no,None, status if status else None)
+        elif choice == "3":
+            task_no = input("Enter task no: ")
+            todo_list.delete(task_no)
+        elif choice == "4":
+            todo_list.view()
+        elif choice == "5":
+            break
+        else:
+            print("Invalid option. Please choose a valid option.")
+if __name__ == "__main__":
+    main()
